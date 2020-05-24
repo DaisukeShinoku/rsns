@@ -13,3 +13,7 @@
  *= require_tree .
  *= require_self
  */
+
+/*BootstrapをSCSSに読み込ませる*/
+ @import "bootstrap-sprockets";
+ @import "bootstrap";
