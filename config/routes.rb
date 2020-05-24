@@ -4,6 +4,8 @@ Rails.application.routes.draw do
   root 'homes#top'
 # この書き方でURLを指定する
   get '/about', to: "homes#about"
+  get '/contact', to: "homes#contact"
+  get '/help', to: "homes#help"
 # ユーザー登録用
   get '/signup', to: "users#new"
 # ログイン機能

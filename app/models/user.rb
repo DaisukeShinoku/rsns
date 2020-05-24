@@ -16,7 +16,8 @@ class User < ApplicationRecord
 	# 3. authenticateメソッド追加
 	has_secure_password
 	# 字数制限と存在性（上のメソッドでの存在性のバリデーションは更新時は適用されない）
-	validates :password, presence: true, length: { minimum: 6 }
+  # パスワードが空のままでも更新できるようにするallow_nil: true
+	validates :password, presence: true, length: { minimum: 6 }, allow_nil: true
 
   # 渡された文字列のハッシュ値を返す、bcryptを使う
   def User.digest(string)
@@ -53,7 +54,7 @@ class User < ApplicationRecord
 
   # ユーザーのログイン情報を破棄する
   def forget
-  	# 記憶ダイジェストをnilで更新
+    # 記憶ダイジェストをnilで更新
     update_attribute(:remember_digest, nil)
   end
 end

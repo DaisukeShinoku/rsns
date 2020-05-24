@@ -12,10 +12,12 @@ class SessionsController < ApplicationController
   		log_in user
       # 三項演算子、remember meのチェックボックス
       params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      # フレンドリーフォワーディングのために設定
+      redirect_back_or user
       # ログインしてユーザーを保持する
-      remember user
+      # remember user
   		# プロフィールページuser_url(user)へのルーティング
-  		redirect_to user
+  		# redirect_to user
   	else
   		# flash.nowのメッセージはその後リクエストが発生したときに消滅
   		flash.now[:danger] = 'Invalid email/password combination'
@@ -26,7 +28,6 @@ class SessionsController < ApplicationController
   def destroy
     # ログイン中の場合のみログアウトする(複数タブでアプリケーションを開いている時のログアウトに対応)
     log_out if logged_in?
-  	log_out
   	redirect_to root_url
   end
 end
