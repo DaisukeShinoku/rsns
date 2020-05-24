@@ -10,6 +10,7 @@ class UsersController < ApplicationController
 	def create
 		@user = User.new(user_params)
 		if @user.save
+			log_in @user
 			flash[:success] = "ユーザー登録に成功しました！"
 			# redirect_to user_url(@user)と同意、redirect_toの時はpathでなくurl、HTTPの標準としては、リダイレクトのときに完全なURLが要求される
 			redirect_to @user
