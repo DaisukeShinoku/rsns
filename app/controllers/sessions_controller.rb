@@ -10,6 +10,10 @@ class SessionsController < ApplicationController
   	if user && user.authenticate(params[:session][:password])
   		# ヘルパーでlog_inを定義している
   		log_in user
+      # 三項演算子、remember meのチェックボックス
+      params[:session][:remember_me] == '1' ? remember(user) : forget(user)
+      # ログインしてユーザーを保持する
+      remember user
   		# プロフィールページuser_url(user)へのルーティング
   		redirect_to user
   	else
@@ -20,6 +24,8 @@ class SessionsController < ApplicationController
   end
 
   def destroy
+    # ログイン中の場合のみログアウトする(複数タブでアプリケーションを開いている時のログアウトに対応)
+    log_out if logged_in?
   	log_out
   	redirect_to root_url
   end
